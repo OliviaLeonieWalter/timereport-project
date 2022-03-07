@@ -1,26 +1,22 @@
 
-let selectedEmployee;
 const Login = () => {
    
-
-    return (
-      <form action="/Login.js" method="post">
-        <label for="employee">Choose a employee:</label>
-        <select name="Employees" id="employee">
-        <option value="kalle">kalle</option>
-        <option value="anna">anna</option>
-        <option value="bertil">bertil</option>
-        <option value="qwerty">qwerty</option>
-        </select>
-        <br></br>
-        <input type="submit" value="Submit" onclick="getEmployee()"/>
-      </form>
-    );
-  };
   function getEmployee(){
-    var employee = document.getElementById("employee");
-    console.log(employee);
+    var employeeLoggedIn = document.getElementById("employeeDropdown");
+
+    console.log(employeeLoggedIn.value);
   }
 
+    return (
+      <div id="loginSection">
+        <select id="employeeDropdown" name="">
+          <option value="Kalle">Kalle</option>
+          <option value="Anna">Anna</option>
+        </select>
+         
+        <button id="fetchEmployeeButton" onClick={getEmployee}>Login</button>
+      </div> 
+    );
+  };
 
 export default Login;
