@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Login from './components/pages/login/Login';
+import Login from './pages/login/Login';
 
 export const Header = () => {
   return (
