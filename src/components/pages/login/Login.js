@@ -1,6 +1,7 @@
 import { giveMeAnswer } from "../../../services/notion";
+import { useEffect } from "react";
 
-const Login = () => {
+ const Login = () => {
   useEffect(() => {
     giveMeAnswer();
   }, []);
