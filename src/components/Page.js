@@ -1,4 +1,3 @@
-import "../style/index.scss";
 import { Header } from './Header';
 import { Outlet as Content } from 'react-router-dom';
 

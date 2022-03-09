@@ -1,0 +1,74 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  scroll-behavior: smooth;
+  padding: 1em;
+  font-family: Poppins;
+  line-height: 1.6;
+  color: white;
+  background-color: #212121;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: white;
+  text-underline-offset: 2px;
+
+  &:hover, 
+  &:focus-visible {
+    text-decoration-color: dodgerblue;
+  }
+
+  &:active {
+    color: dodgerblue;
+  }
+}
+
+button {
+  padding: 0.5em 0.75em;
+  outline: 1px solid white;
+  border: 0;
+  border-radius: 0.5em;
+  color: white;
+  background-color: transparent;
+
+  &:hover,
+  &:focus-visible {
+    outline-color: dodgerblue;
+    outline-offset: -2px;
+  }
+
+  &:active {
+    color: dodgerblue;
+  }
+}
+
+select {
+  padding: 0.5em;
+  color: white;
+  outline: 1px solid white;
+  border: 0;
+  border-radius: 0.5em;
+  background-color: transparent;
+  
+  &:hover,
+  &:focus-visible {
+    outline-color: dodgerblue;
+    outline-offset: -2px;
+  }
+  
+  > option {
+    background-color: #212121;
+  }
+}
