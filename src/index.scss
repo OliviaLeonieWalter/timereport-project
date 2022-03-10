@@ -10,11 +10,20 @@
 
 :root {
   scroll-behavior: smooth;
-  padding: 1em;
   font-family: Poppins;
   line-height: 1.6;
   color: white;
   background-color: #212121;
+}
+
+main {
+  text-align: center;
+  padding: 1em;
+
+  .title {
+    font-size: 3rem;
+    padding: 0.5em;
+  }
 }
 
 ul {
@@ -24,9 +33,11 @@ ul {
 a {
   color: white;
   text-underline-offset: 2px;
-
+  text-decoration: none;
+  
   &:hover, 
   &:focus-visible {
+    text-decoration: underline;
     text-decoration-color: dodgerblue;
   }
 
@@ -36,6 +47,7 @@ a {
 }
 
 button {
+  cursor: pointer;
   padding: 0.5em 0.75em;
   outline: 1px solid white;
   border: 0;
@@ -54,21 +66,21 @@ button {
   }
 }
 
-select {
-  padding: 0.5em;
-  color: white;
-  outline: 1px solid white;
-  border: 0;
-  border-radius: 0.5em;
-  background-color: transparent;
-  
-  &:hover,
-  &:focus-visible {
-    outline-color: dodgerblue;
-    outline-offset: -2px;
+#primary-header {
+  font-size: 2em;
+  inset: 0 0 auto 0;
+  padding: 1em;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  > nav > ul {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1em;
+    justify-content: center;
+
   }
-  
-  > option {
-    background-color: #212121;
+
+  .active {
+    text-decoration: underline;
   }
 }

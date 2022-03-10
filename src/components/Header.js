@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-export const Header = () => {
+export function Header() {
   return (
-    <header>
+    <header id='primary-header'>
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
           </li>
           <li>
-            <Link to="/example-page">Example Page</Link>
+            <NavLink to="/dev" className={({ isActive }) => isActive ? 'active' : ''}>Development</NavLink>
           </li>
         </ul>
       </nav>

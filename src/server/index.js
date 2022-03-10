@@ -9,14 +9,26 @@ const notion = new Client({ auth: token });
 
 app.listen(port, console.log(`Server created on port: ${port}`));
 
-app.get('^/database/:databaseId(*)', (req, res) => {
-  notion.databases.retrieve({ database_id: req.params.databaseId })
-    .then(database => res.send(database))
-    .catch(() => res.sendStatus(404));
+app.get('^/databases', (req, res) => {
+  notion.search({ filter: { property: 'object', value: 'database' } })
+    .then(database => res.send(database.results))
+    .catch(error => res.sendStatus(404).send(error.message));
 });
 
-app.get('^/databases/', (req, res) => {
-  notion.databases.query('page')
+app.get('^/database/:databaseID(*)', (req, res) => {
+  notion.databases.retrieve({ database_id: req.params.databaseID })
     .then(database => res.send(database))
-    .catch(() => res.sendStatus(404));
+    .catch(error => res.sendStatus(404).send(error.message));
+});
+
+app.get('^/users', (req, res) => {
+  notion.users.list()
+    .then(users => res.send(users.results.filter(user => user.type === 'person')))
+    .catch(error => res.sendStatus(404).send(error.message));
+});
+
+app.get('^/user/:userID(*)', (req, res) => {
+  notion.users.retrieve({ user_id: req.params.userID })
+    .then(user => res.send(user))
+    .catch(error => res.sendStatus(404).send(error.message));
 });

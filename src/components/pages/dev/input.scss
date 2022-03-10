@@ -1,0 +1,22 @@
+.input > ul {
+  font-size: 1.25em;
+  display: inline-block;
+  
+  > li {
+    cursor: pointer;
+    padding: 0.25em 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: transparent;
+    border-radius: 0.25em;
+
+    &:not(:first-child) {
+      margin-top: 0.25em;
+    }
+    
+    &:hover {
+      color: black;
+      background-color: dodgerblue;
+    }
+  }
+}

@@ -1,12 +1,14 @@
 import { Header } from './Header';
 import { Outlet as Content } from 'react-router-dom';
 
-export const Page = () => {
+export function Page() {
   return (
     <>
       <Header />
 
-      <Content />
+      <main>
+        <Content />
+      </main>
     </>
   );
 };
