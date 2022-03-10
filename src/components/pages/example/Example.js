@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { UserInput } from "../home/user/UserInput";
-import { DatabaseInput } from "../home/database/DatabaseInput";
-import { Database } from "../home/database/Database";
 
 export function Example() {
   const [project, setProject] = useState("None");
   const [week, setWeek] = useState(0);
   const [comment, setComment] = useState("");
-  
-  function B(){
+
+  function B() {
     var input = document.getElementById("projectSelect");
     var inputVal = "";
     if (input) {
@@ -18,14 +15,14 @@ export function Example() {
     }
   }
 
-  function C(){
+  function C() {
     var input = document.getElementById("weekInput");
     var inputVal = "";
-    if(input.value > 52 || input.value < 0 || input.value === ""){
+    if (input.value > 52 || input.value < 0 || input.value === "") {
       console.log("error");
     }
-    else{
-      if(input){
+    else {
+      if (input) {
         inputVal = input.value;
         setWeek(`${inputVal}`);
         console.log(inputVal);
@@ -33,7 +30,7 @@ export function Example() {
     }
   }
 
-  function D(){
+  function D() {
     var input = document.getElementById("commentInput");
     var inputVal = "";
     if (input) {
@@ -43,7 +40,7 @@ export function Example() {
     }
   }
 
-  return(
+  return (
     <div>
       <h2 id="e">Rapporterar för: {project}</h2>
       <select id="projectSelect">
@@ -51,7 +48,7 @@ export function Example() {
         <option value="Project_b">Project_b</option>
       </select>
       <button onClick={B}>Klicka</button>
-      <br/>
+      <br />
 
       <h2>Vecka: {week}</h2>
       <input id="weekInput" type="number" min="0" max="52"></input>

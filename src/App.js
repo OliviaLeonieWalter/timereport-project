@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Page } from './components/Page';
 import { Home } from './components/pages/home/Home';
 import { Development } from "./components/pages/dev/Development";
+import { Example } from "./components/pages/example/Example";
 import { Error } from "./components/pages/error/Error";
 import { useEffect, useState } from "react";
 
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/" element={<Page />}>
           <Route index element={<Home />} />
           <Route path="dev" element={<Development {...{ users, databases }} />} />
+          <Route path="example" element={<Example />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
