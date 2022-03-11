@@ -1,4 +1,4 @@
-import "./input.scss";
+import "../login/input.scss";
 
 export function DatabaseInput({ databases, setDatabase }) {
   return (

@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
+/* 
+  GLOBAL STYLES
+*/
+
 *,
 *::before,
 *::after {
@@ -19,13 +23,13 @@
 main {
   text-align: center;
   padding: 1em;
-
-  .title {
-    font-size: 3rem;
-    padding: 0.5em;
-  }
 }
 
+.title {
+  font-size: 3rem;
+  padding: 0.5em;
+}
+  
 ul {
   list-style: none;
 }
@@ -35,8 +39,7 @@ a {
   text-underline-offset: 2px;
   text-decoration: none;
   
-  &:hover, 
-  &:focus-visible {
+  &:hover {
     text-decoration: underline;
     text-decoration-color: dodgerblue;
   }
@@ -55,8 +58,7 @@ button {
   color: white;
   background-color: transparent;
 
-  &:hover,
-  &:focus-visible {
+  &:hover {
     outline-color: dodgerblue;
     outline-offset: -2px;
   }
@@ -67,20 +69,48 @@ button {
 }
 
 #primary-header {
+  display: grid;
+  grid-template-columns: 20% auto 20%;
   font-size: 2em;
   inset: 0 0 auto 0;
-  padding: 1em;
+  padding: 0.5em;
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.6);
-
-  > nav > ul {
+  
+  div {
     display: flex;
-    flex-flow: row wrap;
+    align-items: center;
+  }
+  
+  img {
+    width: 2em;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 2px solid white;
+    border-radius: 50%;
+  }
+  
+  h1 {
+    min-width: max-content;
+    display: inline-block;
+    font-size: 1em;
+    margin-inline: 0.5em auto;
+  }
+  
+  ul {
+    display: flex;
     gap: 1em;
     justify-content: center;
-
   }
-
-  .active {
-    text-decoration: underline;
+  
+  button {
+    padding: 0.25em 0.5em;
+    border-radius: 0.25em;
+    font-size: 1em;
+    margin-left: auto;
   }
+}
+
+.active {
+  text-decoration: underline;
 }

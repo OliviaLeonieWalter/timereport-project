@@ -1,22 +1,9 @@
 import { useState } from "react";
-import { UserInput } from "./UserInput";
 import { DatabaseInput } from "./DatabaseInput";
 
-export function Development({ users, databases }) {
-  const [user, setUser] = useState(false);
+export function Development({ databases }) {
   const [database, setDatabase] = useState(false);
 
-  if (!users) return (
-    <>
-      <h1 className="title">Loading...</h1>
-    </>
-  );
-
-  if (!user) return (
-    <>
-      <UserInput {...{ users, setUser }} />
-    </>
-  );
 
   if (!databases) return (
     <>
@@ -32,8 +19,8 @@ export function Development({ users, databases }) {
 
   return (
     <>
-      <h1 className="title">{user.name} - {database.title[0].plain_text} {database.icon.emoji}</h1>
-      <button onClick={() => { setUser(false); setDatabase(false); }}>Reset</button>
+      <h1 className="title">{database.title[0].plain_text} {database.icon.emoji}</h1>
+      <button onClick={() => { setDatabase(false); }}>Reset</button>
     </>
   );
 };
