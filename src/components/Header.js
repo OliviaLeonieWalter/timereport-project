@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
-export function Header({ user, logout }) {
+export function Header({ user, setUser }) {
   return (
     <header id='primary-header'>
       <div>
@@ -18,9 +18,16 @@ export function Header({ user, logout }) {
           <li>
             <NavLink to="/dev" className={({ isActive }) => isActive ? 'active' : ''}>Development</NavLink>
           </li>
+          {
+            user.role === 'admin' ? (
+              <li>
+                <NavLink to="/management" className={({ isActive }) => isActive ? 'active' : ''}>Management</NavLink>
+              </li>
+            ) : null
+          }
         </ul>
       </nav>
-      <button onClick={() => logout()} children="Log out" />
+      <button onClick={() => setUser(undefined)}><Link to="/" children="Log out" /></button>
     </header>
   );
 };
