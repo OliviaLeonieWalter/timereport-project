@@ -1,13 +1,13 @@
 import "./input.scss";
 
-export function UserInput({ users, setUser }) {
+export function UserInput({ setUser, users }) {
   return (
     <section className="input">
       <h1 className="title">Select User</h1>
       <ul>
         {
           users.map(user =>
-            <li key={user.id} onClick={() => setUser(user)}>{user.name}</li>
+            <li key={user.id} onClick={() => setUser(user)} children={user.name} />
           )
         }
       </ul>
