@@ -1,17 +1,33 @@
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useEffect, useState } from "react";
-import App from "../../../App"
-import {Login} from "../login/Login"
+import App from "../../../App";
+import { Login } from "../login/Login";
 import { UserInput } from "../login/UserInput";
 
-export function Example({user, databases}) {
+export function Example({ user, databases }) {
   const [users, setUsers] = useState("");
+  const [timereport, setDatabase] = useState(false);
   const [project, setProject] = useState("None");
   const [week, setWeek] = useState(0);
   const [comment, setComment] = useState("");
   const [day, setDay] = useState("");
   const [hours, setHours] = useState(0);
+
+  useEffect(() => {
+    if (!databases) return;
+
+    const database = databases.find(database => database.title[0].plain_text === 'Timereports');
+    if (!database) return;
+
+    setDatabase(database);
+
+  }, [databases]);
+
+  useEffect(() => {
+    if (!timereport) return;
+    console.log(timereport);
+  }, [timereport]);
 
   function getProject() {
     var input = document.getElementById("projectSelect");
@@ -67,14 +83,14 @@ export function Example({user, databases}) {
       }
     }
   }
-  
+
   useEffect(() => {
-    if(user){
+    if (user) {
       setUsers(user.name);
-   }
+    }
   });
 
-  function getAllInfo(){
+  function getAllInfo() {
     getProject();
     getWeek();
     getDay();
@@ -115,7 +131,7 @@ export function Example({user, databases}) {
 
       <h2>Kommentar:</h2>
       <input id="commentInput" type="text"></input>
-      <br/>
+      <br />
 
       <button onClick={getAllInfo}>Knapp..</button>
     </div>
