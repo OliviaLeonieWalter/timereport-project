@@ -108,6 +108,10 @@ button {
     border-radius: 0.25em;
     font-size: 1em;
     margin-left: auto;
+
+    > a:hover {
+      text-decoration: none;
+    }
   }
 }
 
