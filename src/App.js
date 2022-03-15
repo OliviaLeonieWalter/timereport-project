@@ -6,22 +6,17 @@ import { Example } from "./components/pages/example/Example";
 import { Roles } from "./components/pages/roles/Roles";
 import { Error } from "./components/pages/error/Error";
 import { useEffect, useState } from "react";
+import { roles } from "./roles";
 
 export default function App() {
   const [user, setUser] = useState(false);
   const [users, setUsers] = useState(false);
-  const [roles, setRoles] = useState(false);
   const [databases, setDatabases] = useState(false);
 
   useEffect(() => {
     fetch('/users')
       .then(users => users.json())
       .then(users => setUsers(users))
-      .catch(error => console.log(error));
-
-    fetch('roles.json')
-      .then(roles => roles.json())
-      .then(roles => setRoles(roles))
       .catch(error => console.log(error));
 
     fetch('/databases')
