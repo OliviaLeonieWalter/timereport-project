@@ -28,7 +28,7 @@ export default function App() {
         <Route path="/" element={<Login {...{ users, user, setUser }} />}>
           <Route index element={<Home />} />
           <Route path="dev" element={<Development {...{ users, databases }} />} />
-          <Route path="example" element={<Example />} />
+          <Route path="example" element={<Example {...{ user, databases }} />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

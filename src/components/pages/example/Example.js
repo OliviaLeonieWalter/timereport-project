@@ -1,7 +1,12 @@
 import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { useEffect, useState } from "react";
+import App from "../../../App"
+import {Login} from "../login/Login"
+import { UserInput } from "../login/UserInput";
 
-export function Example() {
+export function Example({user, databases}) {
+  const [users, setUsers] = useState("");
   const [project, setProject] = useState("None");
   const [week, setWeek] = useState(0);
   const [comment, setComment] = useState("");
@@ -62,6 +67,12 @@ export function Example() {
       }
     }
   }
+  
+  useEffect(() => {
+    if(user){
+      setUsers(user.name);
+   }
+  });
 
   function getAllInfo(){
     getProject();
@@ -73,6 +84,8 @@ export function Example() {
 
   return (
     <div>
+      <h1>reporting for user: {users}</h1>
+
       <h2 id="e">Rapporterar för: {project}</h2>
       <select id="projectSelect">
         <option value="Project_a">Project_a</option>
