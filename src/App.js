@@ -58,7 +58,7 @@ export default function App() {
           <Route path="dev" element={<Development {...{ users, databases }} />} />
           <Route path="example" element={<Example {...{ user, databases }} />} />
           <Route path="dev" element={<Development {...{ databases }} />} />
-          <Route path="example" element={<Example />} />
+          <Route path="example" element={<Example {...{ user, databases }} />} />
           <Route path="management" element={user ? user.role === 'admin' ? <Roles {...{ user }} /> : <Navigate replace to="/" /> : null} />
           <Route path="*" element={<Error />} />
         </Route>
