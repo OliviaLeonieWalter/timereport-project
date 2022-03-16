@@ -96,6 +96,21 @@ export function Example({ user, databases }) {
     getDay();
     getHours();
     getComment();
+    sendData();
+  }
+
+  function sendData(){
+    fetch("http://localhost:3001/submitData", {
+      method: "post",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        person: users,
+        hours: hours
+      })
+    })
   }
 
   return (
