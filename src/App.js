@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { Login } from "./components/pages/login/Login";
 import { Page } from './components/Page';
 import { Home } from './components/pages/home/Home';
 import { Development } from "./components/pages/dev/Development";
@@ -50,16 +51,18 @@ export default function App() {
     localStorage['user'] = user.id;
   }, [user]);
 
+  if (!user) return <Login {...{ setUser, users }} />;
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Page {...{ user, setUser, users }} />}>
+        <Route path="/" element={<Page {...{ user, setUser }} />}>
           <Route index element={<Home />} />
           <Route path="dev" element={<Development {...{ users, databases }} />} />
           <Route path="example" element={<Example {...{ user, databases }} />} />
           <Route path="dev" element={<Development {...{ databases }} />} />
           <Route path="example" element={<Example {...{ user, databases }} />} />
-          <Route path="management" element={user ? user.role === 'admin' ? <Roles {...{ user }} /> : <Navigate replace to="/" /> : null} />
+          <Route path="management" element={user && user.role === 'admin' ? <Roles {...{ user }} /> : <Navigate replace to="/" />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>

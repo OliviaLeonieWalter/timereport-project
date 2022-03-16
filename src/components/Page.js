@@ -1,10 +1,7 @@
 import { Header } from './Header';
 import { Outlet as Content } from 'react-router-dom';
-import { Login } from './pages/login/Login';
 
-export function Page({ user, setUser, users }) {
-  if (!user) return <Login {...{ setUser, users }} />;
-
+export function Page({ user, setUser }) {
   return (
     <>
       <Header {...{ user, setUser }} />

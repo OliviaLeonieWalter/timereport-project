@@ -4,8 +4,8 @@ export function Header({ user, setUser }) {
   return (
     <header id='primary-header'>
       <div>
-        <img src={user.avatar_url ? user.avatar_url : 'profile-picture.png'} alt="Profile" />
-        <h1>{user.name}</h1>
+        <img src={user && user.avatar_url ? user.avatar_url : 'profile-picture.png'} alt="Profile" />
+        <h1>{user && user.name ? user.name : null}</h1>
       </div>
       <nav>
         <ul>
@@ -19,7 +19,7 @@ export function Header({ user, setUser }) {
             <NavLink to="/dev" className={({ isActive }) => isActive ? 'active' : ''}>Development</NavLink>
           </li>
           {
-            user.role === 'admin' ? (
+            user && user.role === 'admin' ? (
               <li>
                 <NavLink to="/management" className={({ isActive }) => isActive ? 'active' : ''}>Management</NavLink>
               </li>
