@@ -68,6 +68,30 @@ app.post("/submitData", jsonParser, async(req, res) =>{
               }
             }
           ]
+        },
+        Week: {
+          number: Week
+        },
+        "Day": {
+          rich_text: [
+            {
+              text: {
+                content: Day
+              }
+            }
+          ]
+        },
+        Hours: {
+          number: Hours
+        },
+        "Comment": {
+          rich_text: [
+            {
+              text: {
+                content: Comment
+              }
+            }
+          ]
         }
       }
     })

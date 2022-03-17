@@ -100,9 +100,8 @@ export function Example({ user, databases }) {
   }
 
   function sendData(){
-    let week_ = week;
-    let day_ = day;
-    let hours_ = hours;
+    let week_ = week * 1;
+    let hours_ = hours * 1;
 
     fetch("http://localhost:3001/submitData", {
       method: "post",
@@ -113,6 +112,10 @@ export function Example({ user, databases }) {
       body: JSON.stringify({
         Person: users,
         Project: project,
+        Week: week_,
+        Day: day,
+        Hours: hours_,
+        Comment: comment
       })
     })
   }
