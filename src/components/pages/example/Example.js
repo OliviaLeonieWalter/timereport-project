@@ -1,18 +1,17 @@
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useEffect, useState } from "react";
-import App from "../../../App";
-import { Login } from "../login/Login";
-import { UserInput } from "../login/UserInput";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export function Example({ user, databases }) {
   const [users, setUsers] = useState("");
   const [timereport, setDatabase] = useState(false);
   const [project, setProject] = useState("None");
-  const [week, setWeek] = useState(0);
   const [comment, setComment] = useState("");
-  const [day, setDay] = useState("");
   const [hours, setHours] = useState(0);
+  const [date, setDate] = useState(new Date());
+  const [sendData, setsendData] = useState(false);
 
   useEffect(() => {
     if (!databases) return;
@@ -29,6 +28,10 @@ export function Example({ user, databases }) {
     console.log(timereport);
   }, [timereport]);
 
+  useEffect(()=>{
+    console.log(Projects.properties);
+  })
+  
   function getProject() {
     var input = document.getElementById("projectSelect");
     var inputVal = "";
@@ -38,35 +41,12 @@ export function Example({ user, databases }) {
     }
   }
 
-  function getWeek() {
-    var input = document.getElementById("weekInput");
-    var inputVal = "";
-    if (input.value > 52 || input.value < 0 || input.value === "") {
-      console.log("error");
-    }
-    else {
-      if (input) {
-        inputVal = input.value;
-        setWeek(`${inputVal}`);
-      }
-    }
-  }
-
   function getComment() {
     var input = document.getElementById("commentInput");
     var inputVal = "";
     if (input) {
       inputVal = input.value;
       setComment(`${inputVal}`);
-    }
-  }
-
-  function getDay() {
-    var input = document.getElementById("daySelect");
-    var inputVal = "";
-    if (input) {
-      inputVal = input.value;
-      setDay(`${inputVal}`);
     }
   }
 
@@ -92,33 +72,35 @@ export function Example({ user, databases }) {
 
   function getAllInfo() {
     getProject();
-    getWeek();
-    getDay();
-    getHours();
     getComment();
-    sendData();
+    getHours();
+    setsendData(true);
   }
-
-  function sendData(){
-    let week_ = week * 1;
-    let hours_ = hours * 1;
-
-    fetch("http://localhost:3001/submitData", {
-      method: "post",
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        Person: users,
-        Project: project,
-        Week: week_,
-        Day: day,
-        Hours: hours_,
-        Comment: comment
+ 
+  useEffect(() =>{
+    if(sendData){
+    
+      let hours_ = hours * 1;
+      console.log(date)
+  
+      fetch("http://localhost:3001/submitData", {
+        method: "post",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          Person: users,
+          Project: project,
+          Week: 0,
+          Day: "Fredag",
+          Hours: hours_,
+          Comment: comment,
+        })
       })
-    })
-  }
+    }
+    setsendData(false);
+  })
 
   return (
     <div>
@@ -131,21 +113,8 @@ export function Example({ user, databases }) {
       </select>
       <br />
 
-      <h2>Vecka: {week}</h2>
-      <input id="weekInput" type="number" min="0" max="52"></input>
-      <br />
-
-      <h2 id="e">Dag: {day}</h2>
-      <select id="daySelect">
-        <option value="Måndag">Måndag</option>
-        <option value="Tisdag">Tisdag</option>
-        <option value="Onsdag">Onsdag</option>
-        <option value="Torsdag">Torsdag</option>
-        <option value="Fredag">Fredag</option>
-        <option value="Lördag">Lördag</option>
-        <option value="Söndag">Söndag</option>
-      </select>
-      <br />
+      <DatePicker selected={date} onChange={date => setDate(date)}  popperPlacement="bottom"/>
+      <br/>
 
       <h2>Timmar: {hours}</h2>
       <input id="hourInput" type="number" min="0" max="24"></input>
