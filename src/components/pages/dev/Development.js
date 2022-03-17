@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
-import { getIsAdmin } from "../../../data/getIsAdmin"
+import { fetchRoles } from "../../../data/fetchRoles";
 
 export function Development({ user }) {
-  const [isAdmin, setIsAdmin] = useState(false)
-  
+  const [roles, setRoles] = useState(false);
+
   useEffect(() => {
-    getIsAdmin(user.id).then(response => setIsAdmin(response))
-  }, [])
+    fetchRoles().then(response => setRoles(response));
+  }, []);
+
+  useEffect(() => {
+    if (!roles) return;
+
+    console.log(roles);
+  }, [roles]);
 
   return (
     <>
-      <h1>{isAdmin ? 'yes' : 'no'}</h1>
+      { }
     </>
   );
 };

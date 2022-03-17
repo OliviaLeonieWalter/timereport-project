@@ -6,7 +6,6 @@ import { Example } from "./components/pages/example/Example";
 import { Roles } from "./components/pages/roles/Roles";
 import { Error } from "./components/pages/error/Error";
 import { useEffect, useState } from "react";
-import { roles } from "./roles";
 
 export default function App() {
   const [user, setUser] = useState(false);
@@ -23,19 +22,21 @@ export default function App() {
       .then(databases => databases.json())
       .then(databases => setDatabases(databases))
       .catch(error => console.log(error));
+
+
   }, []);
 
   useEffect(() => {
-    if (!users || !roles) return;
+    if (!users) return;
 
     if (localStorage['user']) setUser(users.find(user => user.id === localStorage['user']));
 
     users.forEach(user => {
-      const roleID = Object.values(roles).findIndex(role => role.includes(user.id));
-      user.role = roleID !== -1 ? Object.keys(roles).at(roleID) : 'user';
+      // const roleID = Object.values(roles).findIndex(role => role.includes(user.id));
+      // user.role = roleID !== -1 ? Object.keys(roles).at(roleID) : 'user';
     });
 
-  }, [users, roles]);
+  }, [users]);
 
   useEffect(() => {
     if (user === false) return;
@@ -52,7 +53,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="dev" element={<Development {...{ user, databases }} />} />
           <Route path="example" element={<Example />} />
-          <Route path="management" element={user ? user.role === 'admin' ? <Roles {...{ user, users, roles }} /> : <Navigate replace to="/" /> : null} />
+          <Route path="management" element={user ? user.role === 'admin' ? <Roles {...{ user, users }} /> : <Navigate replace to="/" /> : null} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
