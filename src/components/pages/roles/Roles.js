@@ -5,8 +5,8 @@ import * as rolies from "./roles.json"
 export function Roles({ users, roles }) {
   
   function assignRoll() {
-    // const userInput = document.getElementById("selectUser").value
-    // const roleInput = document.getElementById("selectRole").value
+     const userInput = document.getElementById("selectUser").value
+     const roleInput = document.getElementById("selectRole").value
     
 
     // const existingRoles = Object.keys(roles).filter(role => role.includes(userInput));

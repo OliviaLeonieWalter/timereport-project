@@ -32,3 +32,16 @@ app.get('^/user/:userID(*)', (req, res) => {
     .then(user => res.send(user))
     .catch(error => res.sendStatus(404).send(error.message));
 });
+
+app.get('/roles', (req, res) => {
+  notion.blocks.children.list({block_id: 'cf2972c2-176f-4c46-9f69-43dbffd81356'})
+    .then(response => res.send(response.results))
+    .catch(error => res.sendStatus(404).send(error.message));
+});
+
+app.get('/role/:roleID(*)', (req, res) => {
+  notion.blocks.children.list({ block_id: req.params.roleID })
+    .then(response => res.send(response.results))
+    .catch(error => res.sendStatus(404).send(error.message));
+});
+
