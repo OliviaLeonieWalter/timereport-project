@@ -9,7 +9,7 @@ app.use(cors());
 const port = 3001;
 
 const token = "secret_iAH7qE3H2iPsk4oBTiTN99lqHR71VyEYoNHD1yY2jvJ";
-const databaseId = "eafb947e164b4c6592748836e1e2cecc";
+const databaseId = "559c653219e44d6b890220e0aff15dfc";
 const notion = new Client({ auth: token });
 
 app.listen(port, console.log(`Server created on port: ${port}`));
@@ -40,27 +40,31 @@ app.get('^/user/:userID(*)', (req, res) => {
 
 app.post("/submitData", jsonParser, async(req, res) =>{
   
-  const person = req.body.person;
-  const hours = req.body.hours;
+  const Person = req.body.Person;
+  const Project = req.body.Project;
+  const Week = req.body.Week;
+  const Day = req.body.Day;
+  const Hours = req.body.Hours;
+  const Comment = req.body.Comment;
 
   try{
-    const response = await notion.page.create({
+    const response = await notion.pages.create({
       parent: {database_id: databaseId},
       properties: {
-        person: {
+        "Person": {
           title: [
             {
-              Text: {
-                content: person
+              text: {
+                content: Person
               }
             }
           ]
         },
-        hours: {
+        "Project": {
           rich_text: [
             {
-              Text: {
-                content: hours
+              text: {
+                content: Project
               }
             }
           ]

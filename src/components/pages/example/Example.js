@@ -100,6 +100,10 @@ export function Example({ user, databases }) {
   }
 
   function sendData(){
+    let week_ = week;
+    let day_ = day;
+    let hours_ = hours;
+
     fetch("http://localhost:3001/submitData", {
       method: "post",
       headers: {
@@ -107,8 +111,8 @@ export function Example({ user, databases }) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        person: users,
-        hours: hours
+        Person: users,
+        Project: project,
       })
     })
   }
