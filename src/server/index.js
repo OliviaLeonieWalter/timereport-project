@@ -46,6 +46,7 @@ app.post("/submitData", jsonParser, async(req, res) =>{
   const Day = req.body.Day;
   const Hours = req.body.Hours;
   const Comment = req.body.Comment;
+  const Date = req.body.Date;
 
   try{
     const response = await notion.pages.create({
@@ -92,6 +93,11 @@ app.post("/submitData", jsonParser, async(req, res) =>{
               }
             }
           ]
+        },
+        Date: {
+          date: {
+            start: Date
+          }
         }
       }
     })

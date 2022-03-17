@@ -27,10 +27,6 @@ export function Example({ user, databases }) {
     if (!timereport) return;
     console.log(timereport);
   }, [timereport]);
-
-  useEffect(()=>{
-    console.log(Projects.properties);
-  })
   
   function getProject() {
     var input = document.getElementById("projectSelect");
@@ -81,6 +77,7 @@ export function Example({ user, databases }) {
     if(sendData){
     
       let hours_ = hours * 1;
+
       console.log(date)
   
       fetch("http://localhost:3001/submitData", {
@@ -96,6 +93,7 @@ export function Example({ user, databases }) {
           Day: "Fredag",
           Hours: hours_,
           Comment: comment,
+          Date: date
         })
       })
     }
