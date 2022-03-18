@@ -1,45 +1,80 @@
-import React from 'react';
+import { Navigate } from 'react-router-dom';
 
+export function Roles({ user, users, roles }) {
+  function getChanges() {
+    const newRoles = JSON.parse(JSON.stringify(roles));
+    Object.values(newRoles).forEach((role, i) => newRoles[Object.keys(newRoles)[i]].users = []);
+    const changes = { add: {}, remove: {} };
+    Object.keys(roles).forEach(role => {
+      changes.add[role] = [];
+      changes.remove[role] = [];
+    });
 
-export function Roles({ users, roles }) {
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(checked => {
+      const [user, role] = checked.name.split(':');
+      newRoles[role].users.push(user);
+    });
 
-  function assignRoll() {
-    const userInput = document.getElementById("selectUser").value;
-    const roleInput = document.getElementById("selectRole").value;
+    Object.keys(newRoles).forEach(role => {
+      if (JSON.stringify(roles[role].users) === JSON.stringify(newRoles[role].users)) return;
 
+      newRoles[role].users.forEach(user => {
+        if (roles[role].users.includes(user)) return;
 
-    // const existingRoles = Object.keys(roles).filter(role => role.includes(userInput));
-    // console.log(existingRoles)
+        if (changes.add[role].includes(user)) return;
 
-    // existingRoles.forEach(role => Object.values(roles[role]).splice(role.findIndex(userInput)))
+        changes.add[role].push(user);
+      });
 
-    // if (roleID !== -1) roles[Object.keys(roles)[roleID]] = Object.values(roles)[roleID].filter(user => user !== userInput)
+      roles[role].users.forEach(user => {
+        if (newRoles[role].users.includes(user)) return;
 
-    // roles[roleInput].push(userInput);
-    // console.log(roles)
+        if (changes.remove[role].includes(user)) return;
+
+        changes.remove[role].push(user);
+      });
+    });
+
+    console.log(changes);
   }
 
+  if (!roles) return <h1>Loading...</h1>;
+
+  if (roles && !roles.administrators.users.includes(user.id)) return <Navigate to="/" />;
+
   return (
-    <div>
-      <h1>Manage access</h1>
-      <h2>Users:</h2>
-      <select id="selectUser">
-        {
-          users.filter(user => user.role !== "admin").map(user => <option key={user.id} value={user.id}>{user.name}</option>
-          )
-        }
-      </select>
-      <h2>Assign role</h2>
-      <select id="selectRole">
-        {
-          Object.keys(roles).map(role => <option key={role} value={role}>{role}</option>
-          )
-        }
-      </select>
-      <br />
-      <button onClick={assignRoll}>Assign/Save</button>
-
-    </div>
-
+    <form id='roles'>
+      <table>
+        <thead>
+          <tr>
+            <th>Person</th>
+            {
+              Object.keys(roles).map(role =>
+                <th key={role}>{roles[role].title}</th>
+              )
+            }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            users.map(user => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+                {
+                  Object.keys(roles).map(role =>
+                    <td key={`${user.id}-${role}`}>
+                      <input type="checkbox" name={`${user.id}:${role}`} defaultChecked={roles[role].users.includes(user.id)} />
+                    </td>
+                  )
+                }
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <span onClick={() => { getChanges(); }} >Save Changes</span>
+    </form>
   );
 }
+
+//  ♣️ ♣️ ♣️ ♣️ ♣️ ♣️ ♣️ ♣️

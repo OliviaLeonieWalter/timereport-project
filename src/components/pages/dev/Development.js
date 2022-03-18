@@ -16,7 +16,7 @@ export function Development({ user }) {
 
   return (
     <>
-      { }
+      {null}
     </>
   );
 };

@@ -1,9 +1,5 @@
 export async function fetchRoles() {
-  let output = {
-    admin: [],
-    productOwner: [],
-    boss: []
-  };
+  const output = {};
 
   const roles = await (
     fetch('/roles')
@@ -11,18 +7,15 @@ export async function fetchRoles() {
       .catch(error => console.log(error))
   );
 
-  for (let roleIndex = 0; roleIndex < roles.length; roleIndex++) {
-    output[Object.keys(output)[roleIndex]] = await (
-      fetch(`/role/${roles[roleIndex].id}`)
+  for (let i = 0; i < roles.length; i++) {
+    const title = Object.values(roles)[i].toggle.rich_text[0].text.content;
+    const property = title.toLowerCase().replace(/ ./, title.charAt(title.indexOf(' ') + 1).toUpperCase());
+
+    output[property] = { title: title };
+    output[property].users = await (
+      fetch(`/role/${roles[i].id}`)
         .then(response => response.json())
-        .then(response => {
-          const users = [];
-
-          for (let userIndex = 0; userIndex < response.length; userIndex++)
-            users[userIndex] = response[userIndex].paragraph.rich_text[0].mention.user.id;
-
-          return users;
-        })
+        .then(response => response.map(user => user.paragraph.rich_text[0].mention.user.id))
         .catch(error => console.log(error))
     );
   }

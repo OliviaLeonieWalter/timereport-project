@@ -6,35 +6,22 @@ import { Example } from "./components/pages/example/Example";
 import { Roles } from "./components/pages/roles/Roles";
 import { Error } from "./components/pages/error/Error";
 import { useEffect, useState } from "react";
+import { fetchData } from "./data/fetchData";
 
 export default function App() {
   const [user, setUser] = useState(false);
   const [users, setUsers] = useState(false);
+  const [roles, setRoles] = useState(false);
   const [databases, setDatabases] = useState(false);
 
   useEffect(() => {
-    fetch('/users')
-      .then(users => users.json())
-      .then(users => setUsers(users))
-      .catch(error => console.log(error));
-
-    fetch('/databases')
-      .then(databases => databases.json())
-      .then(databases => setDatabases(databases))
-      .catch(error => console.log(error));
-
-
+    fetchData({ setUsers, setRoles, setDatabases });
   }, []);
 
   useEffect(() => {
     if (!users) return;
 
     if (localStorage['user']) setUser(users.find(user => user.id === localStorage['user']));
-
-    users.forEach(user => {
-      // const roleID = Object.values(roles).findIndex(role => role.includes(user.id));
-      // user.role = roleID !== -1 ? Object.keys(roles).at(roleID) : 'user';
-    });
 
   }, [users]);
 
@@ -49,11 +36,11 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Page {...{ user, setUser, users }} />}>
+        <Route path="/" element={<Page {...{ user, setUser, users, roles }} />}>
           <Route index element={<Home />} />
           <Route path="dev" element={<Development {...{ user, databases }} />} />
           <Route path="example" element={<Example />} />
-          <Route path="management" element={user ? user.role === 'admin' ? <Roles {...{ user, users }} /> : <Navigate replace to="/" /> : null} />
+          <Route path="management" element={<Roles {...{ user, users, roles }} />} />
           <Route path="*" element={<Error />} />
         </Route>
       </Routes>
