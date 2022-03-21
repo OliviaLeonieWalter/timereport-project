@@ -104,18 +104,23 @@ export function Example({ user, databases }) {
   })
 
   useEffect(()=>{
+
+    const options = {
+      method: 'POST',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({User: users})
+    };
+
      if(viewTimereports){
-      fetch("http://localhost:3001/retrievePages", {
-        method: "post",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          User: users
-        })
-      })
+      fetch('http://localhost:3001/retrievePages', options)
+      .then(response => response.json())
+      .then(response => response)
+      .catch(err => console.error(err));
      }
+     setViewTimereports(false);
   })
 
   return (

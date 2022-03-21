@@ -103,9 +103,9 @@ app.post("/retrievePages", jsonParser, async(req, res) =>{
 
   try{
     const response = await notion.databases.query({
-      parent: {database_id: timereportDbId},
+      database_id: timereportDbId,
       filter: {
-        property: "Person", title: {User}
+        property: "Hours", number: {greater_than: 10}
       }
     })
     console.log(response);
