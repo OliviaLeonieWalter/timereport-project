@@ -12,6 +12,7 @@ export function Example({ user, databases }) {
   const [hours, setHours] = useState(0);
   const [date, setDate] = useState(new Date());
   const [sendData, setsendData] = useState(false);
+  const [viewTimereports, setViewTimereports] = useState(false);
 
   useEffect(() => {
     if (!databases) return;
@@ -72,6 +73,10 @@ export function Example({ user, databases }) {
     getHours();
     setsendData(true);
   }
+
+  function viewTimereportsButton(){
+     setViewTimereports(true);
+  }
  
   useEffect(() =>{
     if(sendData){
@@ -89,8 +94,6 @@ export function Example({ user, databases }) {
         body: JSON.stringify({
           Person: users,
           Project: project,
-          Week: 0,
-          Day: "Fredag",
           Hours: hours_,
           Comment: comment,
           Date: date
@@ -100,29 +103,49 @@ export function Example({ user, databases }) {
     setsendData(false);
   })
 
+  useEffect(()=>{
+     if(viewTimereports){
+      fetch("http://localhost:3001/retrievePages", {
+        method: "post",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          User: users
+        })
+      })
+     }
+  })
+
   return (
     <div>
-      <h1>reporting for user: {users}</h1>
+      <h1>Reporting for user: {users}</h1>
 
-      <h2 id="e">Rapporterar för: {project}</h2>
+      <h2 id="e">Reporting for project: {project}</h2>
       <select id="projectSelect">
         <option value="Project_a">Project_a</option>
         <option value="Project_b">Project_b</option>
       </select>
       <br />
-
+       
+       <h2>Date</h2>
       <DatePicker selected={date} onChange={date => setDate(date)}  popperPlacement="bottom"/>
       <br/>
 
-      <h2>Timmar: {hours}</h2>
+      <h2>Hours worked: {hours}</h2>
       <input id="hourInput" type="number" min="0" max="24"></input>
       <br />
 
-      <h2>Kommentar:</h2>
+      <h2>Comment:</h2>
       <input id="commentInput" type="text"></input>
       <br />
 
-      <button onClick={getAllInfo}>Knapp..</button>
+      <button onClick={getAllInfo}>Submit timereport</button>
+      <br/>
+      <br/>
+
+      <button onClick={viewTimereportsButton}>View my timereports</button>
     </div>
   );
 };
