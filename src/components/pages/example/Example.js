@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ViewTimereports } from "./ViewTimereport";
 
 export function Example({ user, databases }) {
   const [users, setUsers] = useState("");
@@ -13,6 +14,9 @@ export function Example({ user, databases }) {
   const [date, setDate] = useState(new Date());
   const [sendData, setsendData] = useState(false);
   const [viewTimereports, setViewTimereports] = useState(false);
+  const [receiveTimereports, setReceiveTimereports] = useState(false);
+  const [timereports, setTimereports] = useState(false);
+  var count = 0;
 
   useEffect(() => {
     if (!databases) return;
@@ -75,7 +79,7 @@ export function Example({ user, databases }) {
   }
 
   function viewTimereportsButton(){
-     setViewTimereports(true);
+     setReceiveTimereports(true);
   }
  
   useEffect(() =>{
@@ -108,20 +112,28 @@ export function Example({ user, databases }) {
     const options = {
       method: 'POST',
       headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+       'Notion-Version': '2022-02-22',
+       'Content-Type': 'application/json'
       },
       body: JSON.stringify({User: users})
     };
 
-     if(viewTimereports){
+     if(receiveTimereports){
       fetch('http://localhost:3001/retrievePages', options)
       .then(response => response.json())
-      .then(response => response)
+      .then(response => setTimereports(response))
       .catch(err => console.error(err));
+
+      setReceiveTimereports(false);
+      setViewTimereports(true);
      }
-     setViewTimereports(false);
   })
+
+  useEffect(() => {
+    if (!timereports) return;
+    console.log(timereports.results);
+  }, [timereports]);
 
   return (
     <div>
@@ -151,6 +163,16 @@ export function Example({ user, databases }) {
       <br/>
 
       <button onClick={viewTimereportsButton}>View my timereports</button>
+      <br/>
+      <br/>
+
+      {
+        viewTimereports ? (
+          <ViewTimereports {...{ timereports }} />
+        ) : (
+          <></>
+        )
+      }
     </div>
   );
 };

@@ -105,9 +105,12 @@ app.post("/retrievePages", jsonParser, async(req, res) =>{
     const response = await notion.databases.query({
       database_id: timereportDbId,
       filter: {
-        property: "Hours", number: {greater_than: 10}
+        property: "Person", title: {equals: User}
       }
     })
+    .then(resp => res.send(resp))
+    .catch(error => res.sendStatus(404).send(error.message));
+
     console.log(response);
     console.log("okay");
   } catch(error){
