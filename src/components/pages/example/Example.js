@@ -81,6 +81,10 @@ export function Example({ user, databases }) {
   function viewTimereportsButton(){
      setReceiveTimereports(true);
   }
+
+  function SumbitConfirmation(){
+    document.getElementById("SumbitConfirmation").innerHTML = ""
+  }
  
   useEffect(() =>{
     if(sendData){
@@ -103,6 +107,8 @@ export function Example({ user, databases }) {
           Date: date
         })
       })
+      document.getElementById("SumbitConfirmation").innerHTML = "Timereport successfully submitted"
+      setTimeout(SumbitConfirmation, 3000)
     }
     setsendData(false);
   })
@@ -159,6 +165,7 @@ export function Example({ user, databases }) {
       <br />
 
       <button onClick={getAllInfo}>Submit timereport</button>
+      <h3 id="SumbitConfirmation"></h3>
       <br/>
       <br/>
 
